@@ -1,1 +1,1 @@
-GET http://localhost:8888/
+GET http://localhost:8888/v1/twitch/auth/?code=k3j534kjn5kjn34kj5

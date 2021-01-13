@@ -8,10 +8,10 @@ require('dotenv').config();
  * @prop {string} TWITCH_CLIENT_SECRET Client OAuth Secret for the Twitch app.
  * @prop {string} TWITCH_CLIENT_REDIR_HOST Client redirect.
  * @prop {string} BOT_REFRESH_TOKEN
- * @prop {string} MONGO_HOST Host URL of the Mongo instance.
  * @prop {string} MONGO_USER Mongo DB username.
  * @prop {string} MONGO_PASS Mongo db password
  * @prop {string} MONGO_DBNAME Name of mongo database
+ * @prop {string} MONGO_REPL Name of replicaset if any
  * @prop {string} JWT_SECRET
  *
  */
