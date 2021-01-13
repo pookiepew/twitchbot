@@ -2,6 +2,7 @@ require('dotenv').config();
 
 /**
  * @typedef EnviromentConfiguration
+ * @prop {string} HOST The host address
  * @prop {string} PORT The port to listen on
  * @prop {string} TWITCH_CLIENT_ID Client ID for the Twitch app.
  * @prop {string} TWITCH_CLIENT_SECRET Client OAuth Secret for the Twitch app.
