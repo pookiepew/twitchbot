@@ -1,0 +1,50 @@
+1: Send the user you want to authenticate to your registered redirect URI. 
+   Then, an authorization page will ask the user to sign up or log into Twitch 
+   and allow the user to choose whether to authorize your application/identity system.
+
+  - GET https://id.twitch.tv/oauth2/authorize
+    ?client_id=<your-client-ID>
+    &redirect_uri=<your-registered-redirect-URI>
+    &response_type=code
+    &scope=<space-separated-list-of-scopes>
+
+2: If the user authorizes your application, the user is redirected to your redirect URI, with an authorization code
+
+  - https://<your registered redirect URI>/?code=<authorization code>
+
+3: The OAuth 2.0 authorization code is a 30-character, randomly generated string. 
+   It is used in the next step, a request made to the token endpoint in exchange for an access token
+
+   - http://localhost/
+    ?code=394a8bc98028f39660e53025de824134fb46313
+    &scope=viewing_activity_read
+    &state=c3ab8aa609ea11e793ae92361f002671
+
+4: On your server, get an access token by making this request
+
+  - POST https://id.twitch.tv/oauth2/token
+    ?client_id=<your-client-ID>
+    &client_secret=<your-client-secret>
+    &code=<authorization-code-received-above>
+    &grant_type=authorization_code
+    &redirect_uri=<your-registered-redirect-URI>
+
+  - response:
+  - {
+      "access_token": "<user access token>",
+      "refresh_token": "<refresh token>",
+      "expires_in": <number of seconds until the token expires>,
+      "scope": ["<your previously listed scope(s)>"],
+      "token_type": "bearer"
+    }
+
+5: To allow for applications to remain authenticated for long periods in a world of expiring tokens, we allow for sessions to be refreshed
+   Generally, refresh tokens are used to extend the lifetime of a given authorization
+   To refresh a token, you need an access token/refresh token pair coming from a body. For example
+
+  - POST https://id.twitch.tv/oauth2/token
+    --data-urlencode
+    ?grant_type=refresh_token
+    &refresh_token=<your-refresh-token>
+    &client_id=<your-client-ID>
+    &client_secret=<your-client-secret>
