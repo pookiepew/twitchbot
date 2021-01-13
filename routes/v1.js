@@ -1,10 +1,16 @@
 const express = require('express');
 
-const twitch = require('../controllers/auth');
+const {
+  exchangeCodeForTokens,
+  getCodeFromTwitch,
+} = require('../controllers/auth');
 
 const router = express.Router();
 
-// host.com/v1/twitch/auth
-router.get('/twitch/auth', twitch.exchangeCodeForTokens);
+// http://localhost:8888/v1/twitch/code
+router.get('/twitch/code', getCodeFromTwitch);
+
+// http://localhost:8888/v1/twitch/auth
+router.get('/twitch/auth', exchangeCodeForTokens);
 
 module.exports = router;
