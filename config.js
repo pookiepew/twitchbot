@@ -6,11 +6,13 @@ require('dotenv').config();
  * @prop {string} PORT The port to listen on
  * @prop {string} TWITCH_CLIENT_ID Client ID for the Twitch app.
  * @prop {string} TWITCH_CLIENT_SECRET Client OAuth Secret for the Twitch app.
- * @prop {string} TWITCH_CLIENT_REDIR_HOST Client redirect.
+ * @prop {string} TWITCH_CLIENT_REDIR_URI Client redirect.
+ * @prop {string} TWITCH_BASE_OAUTH_URI Twitch base OAuth URI. Accept GET and POST.
  * @prop {string} BOT_REFRESH_TOKEN
  * @prop {string} MONGO_USER Mongo DB username.
  * @prop {string} MONGO_PASS Mongo db password
  * @prop {string} MONGO_DBNAME Name of mongo database
+ * @prop {string} MONGO_IP IP to mongodb host
  * @prop {string} MONGO_REPL Name of replicaset if any
  * @prop {string} JWT_SECRET
  *
@@ -20,7 +22,7 @@ require('dotenv').config();
  * @type {EnviromentConfiguration}
  */
 const config = {
-  ...process.env
+  ...process.env,
 };
 
 module.exports = config;

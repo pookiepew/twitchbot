@@ -1,8 +1,8 @@
 // @name getCodeFromTwitch
 
-GET http://localhost:8888/v1/twitch/code
+GET http://localhost:3000/authenticate
 
 ###
 
 // @name ExchangeCodeForTokens
-GET http://localhost:8888/v1/twitch/auth/?code=k3j534kjn5kjn34kj5
+GET http://localhost:3000/v1/twitch/auth/?code=3qiqf60b42eczo1abinaldknhq2oj0
