@@ -3,6 +3,8 @@ const cors = require('cors');
 const volleyball = require('volleyball');
 const helmet = require('helmet');
 
+const HttpError = require('./models/http-error');
+
 const config = require('./config');
 
 const connectDB = require('./util/mongoDB');
@@ -13,24 +15,21 @@ app.use(volleyball);
 app.use(helmet());
 app.use(express.json());
 
-// const route = require('./routes/v1');
-
 app.use('/v1', require('./routes/v1'));
 
-app.use('/authenticate', require('./routes/authenticate'));
+// app.use('/authenticate', require('./routes/authenticate'));
 
 app.use((req, res, next) => {
-  const error = new Error('Not Found - ' + req.originalUrl);
-  res.status(404);
-  next(error);
+  const error = new HttpError('Could not find this route.', 404);
+  throw error;
 });
 
 app.use((error, req, res, next) => {
-  res.status(res.statusCode === 200 ? 500 : res.statusCode);
-  res.json({
-    message: error.message,
-    stack: config.NODE_ENV === 'production' ? undefined : error.stack,
-  });
+  if (res.headerSent) {
+    return next(error);
+  }
+  res.status(error.code || 500);
+  res.json({ message: error.message || 'An unknown error occurred!' });
 });
 
 const port = config.PORT || 8888;
