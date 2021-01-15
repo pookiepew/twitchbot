@@ -15,27 +15,25 @@ const exchangeCodeForTokens = async (req, res, next) => {
     const { access_token, refresh_token } = await twitchAPI.getAccessToken(
       code
     );
-  } catch (error) {}
-
-  // const qs = new URLSearchParams({
-  //   client_id: config.TWITCH_CLIENT_ID,
-  //   client_secret: config.TWITCH_CLIENT_SECRET,
-  //   code,
-  //   grant_type: 'authorization_code',
-  //   redirect_uri: config.TWITCH_CLIENT_REDIR_URI
-  // });
+    return res.json({
+      access_token,
+      refresh_token,
+    });
+  } catch (error) {
+    return next(error);
+  }
 
   // try {
-  //   const { data } = axios.post(config.TWITCH_BASE_OAUTH_URI + '/token', qs);
+  //
   //   console.log(data);
   // } catch (error) {}
   // res.status(200).json({
   //   code
   // });
 
-  res.status(200).json({
-    code
-  });
+  // res.status(200).json({
+  //   code,
+  // });
 };
 
 module.exports = { exchangeCodeForTokens };

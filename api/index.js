@@ -32,7 +32,7 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || 'An unknown error occurred!' });
 });
 
-const port = config.PORT || 8888;
+const port = config.PORT || 3000;
 
 const server = app.listen(port, () => {
   connectDB();
