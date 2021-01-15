@@ -2,7 +2,7 @@ const twitchAPI = require('../util/twitchAPI');
 
 const HttpError = require('../models/http-error');
 
-const config = require('../config');
+// const config = require('../config');
 
 const exchangeCodeForTokens = async (req, res, next) => {
   const { code } = req.query;
@@ -17,7 +17,7 @@ const exchangeCodeForTokens = async (req, res, next) => {
     );
     return res.json({
       access_token,
-      refresh_token,
+      refresh_token
     });
   } catch (error) {
     return next(error);
