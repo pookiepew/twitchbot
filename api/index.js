@@ -7,7 +7,7 @@ const HttpError = require('./models/http-error');
 
 const config = require('./config');
 
-const connectDB = require('./util/mongoDB');
+const mongoDB = require('./util/mongoDB');
 
 const app = express();
 app.use(cors());
@@ -15,9 +15,7 @@ app.use(volleyball);
 app.use(helmet());
 app.use(express.json());
 
-app.use('/v1', require('./routes/v1'));
-
-// app.use('/authenticate', require('./routes/authenticate'));
+app.use('/', require('./routes/v1'));
 
 app.use((req, res, next) => {
   const error = new HttpError('Could not find this route.', 404);
@@ -35,6 +33,6 @@ app.use((error, req, res, next) => {
 const port = config.PORT || 3000;
 
 const server = app.listen(port, () => {
-  connectDB();
+  mongoDB.connect();
   console.log(`http://${config.HOST}:` + server.address().port);
 });

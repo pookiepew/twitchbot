@@ -1,7 +1,23 @@
-// @name ExchangeCodeForTokenErrorWithoutCode
-GET http://localhost:3000/v1/auth/code/
+// @name Authenticate-ErrorWithoutCode
+GET http://localhost:3000/authenticate
 
 ###
 
-// @name ExchangeCodeForTokens
-GET http://localhost:3000/v1/auth/code/?code=z467nsx7piqnzh4wf86yj1k61a8vup
+// @name AuthenticateWithTwitch
+GET http://localhost:3000/authenticate/
+    ?code=xhmvrf7wvx20je3m5et2zhzeiv0iq7
+    &scope=chat:edit+chat:read
+
+###
+
+// @name RefreshAccessTokenByTwitchID
+GET http://localhost:3000/refresh-token
+    ?twitch_id=115415445
+    &refresh_token=asd
+
+###
+
+// @name GetUserById
+GET http://localhost:3000/user/
+    ?access_token=up780adu2ujctnehlgw7s5e27fzr2l
+    &id=115415445
