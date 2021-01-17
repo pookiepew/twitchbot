@@ -5,7 +5,7 @@ GET http://localhost:3000/authenticate
 
 // @name AuthenticateWithTwitch
 GET http://localhost:3000/authenticate/
-    ?code=xhmvrf7wvx20je3m5et2zhzeiv0iq7
+    ?code=e1asjwo8ukhzh8t9p5phtknt3fw0tu
     &scope=chat:edit+chat:read
 
 ###
@@ -17,7 +17,16 @@ GET http://localhost:3000/refresh-token
 
 ###
 
-// @name GetUserById
-GET http://localhost:3000/user/
-    ?access_token=up780adu2ujctnehlgw7s5e27fzr2l
-    &id=115415445
+// @name initializeBot-pookiepew
+GET http://localhost:3000/bot/initialize
+    ?login=pookiepew
+    &access_token=
+    &channel=pookiepew
+
+###
+
+// @name initializeBot-pooksibot
+GET http://localhost:3000/bot/initialize
+    ?login=pooksibot
+    &access_token=
+    &channel=pooksibot

@@ -40,22 +40,17 @@ const saveUser = async twitchUser => {
   } = twitchUser;
 
   try {
-    const user = await User.findOneAndUpdate(
-      {
-        twitch_id
-      },
-      {
-        login,
-        twitch_id,
-        display_name,
-        profile_image_url,
-        refresh_token
-      },
-      {
-        new: true,
-        upsert: true
-      }
-    );
+    const filter = { twitch_id };
+    const update = {
+      login,
+      display_name,
+      profile_image_url,
+      refresh_token
+    };
+    const user = await User.findOneAndUpdate(filter, update, {
+      upsert: true,
+      new: true
+    });
     return user;
   } catch (err) {
     const error = new HttpError(
@@ -84,8 +79,37 @@ const findUserByTwitchID = async twitch_id => {
   }
 };
 
+const setConnection = async (login, status) => {
+  try {
+    const user = await User.findOneAndUpdate(
+      { login },
+      { shouldBeConnected: status },
+      { new: true }
+    );
+    return user;
+  } catch (err) {
+    const error = new HttpError(
+      'Updating user with connection info failed, please try again',
+      400
+    );
+    throw error;
+  }
+};
+
+const getAllUsers = async () => {
+  try {
+    const users = User.find();
+    return users;
+  } catch (err) {
+    const error = new HttpError('Failed fetching users from DB', 500);
+    throw error;
+  }
+};
+
 module.exports = {
   connect,
   saveUser,
-  findUserByTwitchID
+  findUserByTwitchID,
+  setConnection,
+  getAllUsers
 };
