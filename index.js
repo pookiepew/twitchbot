@@ -5,7 +5,7 @@ const helmet = require('helmet');
 
 const HttpError = require('./models/http-error');
 
-const config = require('./config');
+const config = require('./util/config');
 
 const mongoDB = require('./util/mongoDB');
 

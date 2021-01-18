@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
-const config = require('../config');
+const config = require('./config');
 
 const User = require('../models/user');
+
 const HttpError = require('../models/http-error');
 
 const connect = async () => {

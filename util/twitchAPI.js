@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const HttpError = require('../models/http-error');
 
-const config = require('../config');
+const config = require('./config');
 
 const getAccessToken = async code => {
   try {

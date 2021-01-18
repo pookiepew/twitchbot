@@ -1,5 +1,3 @@
-const twitchAPI = require('../util/twitchAPI');
-
 const bot = require('../util/bot');
 
 const HttpError = require('../models/http-error');
