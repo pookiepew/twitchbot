@@ -3,15 +3,18 @@ const bot = require('../util/bot');
 const HttpError = require('../models/http-error');
 
 const initializeBot = async (req, res, next) => {
-  const { login, access_token, channel } = req.query;
+  const { login, access_token } = req.query;
+  let { channel } = req.query;
 
-  if (!login || !access_token || !channel) {
+  if (!login || !access_token) {
     const error = new HttpError(
-      'Login, access token and channel required, please try again',
+      'Login and access token is required, please try again',
       500
     );
     return next(error);
   }
+
+  if (!channel) channel = login;
 
   try {
     const user = await bot.connect(login, access_token, channel);

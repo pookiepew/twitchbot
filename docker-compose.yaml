@@ -7,4 +7,4 @@ services:
       - ./:/app
       - /app/node_modules
     ports:
-      - '8888:8888'
+      - '3000:3000'

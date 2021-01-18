@@ -7,10 +7,8 @@ const {
 
 const router = express.Router();
 
-// http://localhost/authenticate
 router.get('/authenticate', authenticateWithTwitch);
 
-// http://localhost/refresh-token
 router.get('/refresh-token', refreshAccessToken);
 
 module.exports = router;
