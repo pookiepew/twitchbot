@@ -25,4 +25,8 @@ const initializeBot = async (req, res, next) => {
   }
 };
 
-module.exports = { initializeBot };
+const disconnectBot = async (req, res, next) => {
+  const { login } = req.query;
+};
+
+module.exports = { initializeBot, disconnectBot };
