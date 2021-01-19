@@ -4,7 +4,8 @@
 
 - [ ] Check for security issues
 - [ ] Fix security issues found ⬆
-- [ ] Create a disconnect route
+- [x] 🎉 Extract 'client' to be a global thing 🎉
+- [x] 🎉 Create a disconnect route 🎉
 - [ ] Create an unauthorize route (will unauthorize this service from twitch)
 
 ## The two use cases for this service
@@ -68,6 +69,20 @@ Example response:
   "profile_image_url": "https://static-cdn.jtvnw.net/user-default-pictures-uv/de130ab0-def7-11e9-b668-784f43822e80-profile_image-300x300.png",
   "refresh_token": <TOKEN>,
   "updatedAt": "2021-01-17T20:38:57.722Z"
+}
+
+```
+
+```js
+
+GET http://localhost:3000/bot/disconnect
+    ?access_token=<TOKEN>
+
+
+Example response:
+
+{
+  "message": "<botname> disconnected from twitch"
 }
 
 ```

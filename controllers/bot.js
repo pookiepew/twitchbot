@@ -26,7 +26,17 @@ const initializeBot = async (req, res, next) => {
 };
 
 const disconnectBot = async (req, res, next) => {
-  const { login } = req.query;
+  const { access_token } = req.query;
+
+  try {
+    const message = await bot.disconnect(access_token);
+    res.json({
+      message
+    });
+  } catch (err) {
+    const error = new HttpError(err.message, err.code);
+    next(error);
+  }
 };
 
 module.exports = { initializeBot, disconnectBot };

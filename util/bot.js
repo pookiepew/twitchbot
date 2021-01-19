@@ -10,16 +10,7 @@ const connect = async (login, access_token, channel) => {
   try {
     const client = tmi.createClient(login, access_token, channel);
 
-    if (client && client.opts.identity.username === login) {
-      const error = new HttpError('Already connected!', 400);
-      throw error;
-    }
-
     await client.connect();
-
-    client.on('connected', (address, port) => {
-      console.log('Connected to twitch chat!', address, port);
-    });
 
     const user = await mongoDB.setConnection(login, true);
 
@@ -29,8 +20,11 @@ const connect = async (login, access_token, channel) => {
         await messageHandler(channel, tags, message, self, client)
     );
 
+    console.log(login, ' ', access_token);
+
     return user;
   } catch (err) {
+    console.log(err);
     const error = new HttpError(
       'Connecting with TMI failed, please try again',
       500
@@ -39,7 +33,23 @@ const connect = async (login, access_token, channel) => {
   }
 };
 
-const disconnect = async () => {};
+const disconnect = async access_token => {
+  try {
+    const client = tmi.getClient(access_token);
+    const {
+      opts: {
+        identity: { username }
+      }
+    } = client;
+    await client.disconnect();
+    tmi.deleteClient(access_token);
+    await mongoDB.setConnection(username, false);
+    return (message = `${username} disconnected from twitch`);
+  } catch (err) {
+    const error = new HttpError('Disconnecting from twitch failed!', 500);
+    throw error;
+  }
+};
 
 const messageHandler = async (channel, tags, message, self, client) => {
   if (self || tags['message-type'] === 'whisper') return;
@@ -73,5 +83,5 @@ const connectIfDisconnected = async () => {
 module.exports = {
   connect,
   disconnect,
-  connectIfDisconnected,
+  connectIfDisconnected
 };
