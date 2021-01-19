@@ -8,6 +8,8 @@
 - [x] 🎉 Create a disconnect route 🎉
 - [ ] Create an unauthorize route (will unauthorize this service from twitch)
 
+- [ ] 📢 Restrict service to a few predefined known names to prevent public access to client & tmi
+
 ## The two use cases for this service
 
 ### Viewer
